@@ -1,16 +1,12 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useUser } from '@/context/UserContext';
 
-export default function LoginContent() {
+export default function LoginContent({ from = '/', mode = 'customer', notice = '' }) {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const from = searchParams.get('from') || '/';
-  const mode = searchParams.get('mode') || 'customer';
-  const notice = searchParams.get('notice') || '';
   const { setUser } = useUser();
 
   const [activeTab, setActiveTab] = useState(mode === 'admin' ? 'admin' : 'customer');
