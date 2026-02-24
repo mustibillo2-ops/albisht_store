@@ -1,4 +1,6 @@
 export const dynamic = "force-dynamic";
+export const fetchCache = "force-no-store";
+export const revalidate = 0;
 
 import LoginContent from './LoginContent';
 
@@ -8,7 +10,7 @@ const getParam = (value, fallback = '') => {
   return fallback;
 };
 
-export default async function Page({ searchParams }) {
+export default async function LoginPage({ searchParams }) {
   const params = (await searchParams) || {};
   const from = getParam(params.from, '/');
   const mode = getParam(params.mode, 'customer');
