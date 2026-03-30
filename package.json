@@ -9,6 +9,9 @@
     "lint": "eslint",
     "db:seed": "node prisma/seed.js"
   },
+  "prisma": {
+    "seed": "node prisma/seed.js"
+  },
   "dependencies": {
     "@prisma/client": "^5.21.1",
     "bcryptjs": "^2.4.3",
