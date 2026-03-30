@@ -71,7 +71,12 @@ async function main() {
 
   await prisma.user.upsert({
     where: { email: "admin@albisht.store" },
-    update: {},
+    update: {
+      name: "مدير المتجر",
+      phone: "0000000000",
+      passwordHash: hashedPassword,
+      role: "admin",
+    },
     create: {
       name: "مدير المتجر",
       phone: "0000000000",
@@ -84,8 +89,12 @@ async function main() {
   for (const category of categoriesData) {
     await prisma.category.upsert({
       where: { slug: category.slug },
-      update: {},
-      create: category,
+      update: {
+        nameAr: category.nameAr,
+        description: category.description,
+        isActive: true,
+      },
+      create: { ...category, isActive: true },
     });
   }
 
@@ -96,7 +105,17 @@ async function main() {
     if (!category) continue;
     await prisma.product.upsert({
       where: { slug: product.slug },
-      update: {},
+      update: {
+        nameAr: product.nameAr,
+        description: product.description,
+        fabric: product.fabric,
+        color: product.color,
+        price: product.price,
+        stock: product.stock,
+        mainImage: product.mainImage,
+        categoryId: category.id,
+        isActive: true,
+      },
       create: {
         nameAr: product.nameAr,
         slug: product.slug,
@@ -107,6 +126,7 @@ async function main() {
         stock: product.stock,
         mainImage: product.mainImage,
         categoryId: category.id,
+        isActive: true,
       },
     });
   }
